@@ -1,0 +1,46 @@
+//- client/components/users.jade
+template( name='users' )
+  h1 Users
+  .row
+    //- the data to be passed by the router to the template
+    +each users
+      .col-xs-6.col-md-4.col-lg-3
+        //- rendering the user card
+        //- the context changes in the each block, so в блоке each контекст меняется, поэтому мы
+        //- we can pass no parameters to the template
+        +userCard
+  //- the button of the next page loading
+  +nextPageButton
+//- client/components/user_avatar/user_avatar.jade
+//- unify the avatar’s template; perhaps, we’ll have to add logic.
+template(name='userAvatar')
+  img(src="{{user.getAvatar size}}", alt=user.getUsername, class="{{class}}")
+//- client/components/user_card.jade
+//- user’s data is used in this template
+//- as well as the functions described earlier in the model
+template(name='userCard')
+  .panel.panel-default
+    .panel-body
+      .pull-left
+        +userAvatar user=this size=80
+      .user-card-info-block
+        ul.fa-ul
+          //- the service and the username
+          li
+            if isFromGithub
+              i.fa.fa-li.fa-github
+            else if isFromGoogle
+              i.fa.fa-li.fa-google
+            else
+              i.fa.fa-li
+            b= getName
+          //- identifier or username
+          li
+            i.fa.fa-li @
+            //- the reference to the user
+            a(href="{{ pathFor route='users_show' data=urlData }}")= getUsername
+          //- the email address, is specified
+          if getPublicEmail
+            li
+              i.fa.fa-li.fa-envelope
+              = getPublicEmail
