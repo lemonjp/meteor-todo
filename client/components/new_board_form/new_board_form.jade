@@ -1,0 +1,23 @@
+//- client/components/new_board_form/new_board_form.jade
+template(name='newBoardForm')
+  //- a panel with dynamic styles
+  .panel.panel-default.new-board-panel(style='{{panelStyle}}')
+    .panel-body
+      h1 New board
+      form(action='#')
+        .form-group
+          input.form-control(type='text',placeholder='Board name',name='board[name]')
+        .form-group
+          .form-users-avatars
+            +each boardFormUsers
+              +userAvatar user=this size=40 class='form-users-avatar'
+              input(type='hidden', name='board[users][]', value=_id)
+          +usersAutocomplete class='form-control' placeholder='Add users' selected=userSelected
+        .form-group
+          textarea.form-control(placeholder='Description',name='board[description]')
+        .form-group
+          //- hide the input with the file, but leave the label to this input, for the beauty of it
+          label.btn.btn-default(for='newBoardImage') Board image
+          .hide
+            input#newBoardImage(type='file', accept='image/*')
+        button.btn.btn-primary(type='submit') Submit

@@ -1,0 +1,26 @@
+//- client/components/editable_field/editable_field.jade
+//- here’s a mixture of calling helpers
+//- and accessing the context data; by the way, if the helper’s name
+//- and properties in the current context are the same,
+//- the helper is preferred
+//- we can access the context explicitly via this.<key>
+template(name='editableField')
+  .form-group.EditableFiled
+    if data.isEditable
+      div(class=inputGroupClass)
+        if hasIcon
+          .input-group-addon
+            if icon
+              i.fa.fa-fw(class='fa-{{icon}}')
+            else
+              i.fa.fa-fw=iconSymbol
+        input.Field.form-control(placeholder=placeholder, value=value, name=name)
+    else
+      if defaultValue
+        span.form-control-static
+          if hasIcon
+            if icon
+              i.fa.fa-fw(class='fa-{{icon}}')
+            else
+              i.fa.fa-fw=iconSymbol
+          = defaultValue

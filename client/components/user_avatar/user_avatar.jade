@@ -1,0 +1,4 @@
+//- client/components/user_avatar/user_avatar.jade
+//- unify the avatar’s template; perhaps, we’ll have to add logic.
+template(name='userAvatar')
+  img(src="{{user.getAvatar size}}", alt=user.getUsername, class="{{class}}")

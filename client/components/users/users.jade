@@ -1,0 +1,13 @@
+//- client/components/users/users.jade
+template( name='users' )
+  h1 Users
+  .row
+    //- the data to be passed by the router to the template
+    +each users
+      .col-xs-6.col-md-4.col-lg-3
+        //- rendering the user card
+        //- the context changes in the each block, so each
+        //- we can pass no parameters to the template
+        +userCard
+  //- the button of the next page loading
+  +nextPageButton

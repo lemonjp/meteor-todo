@@ -1,0 +1,29 @@
+//- client/components/user_card.jade
+//- user’s data is used in this template
+//- as well as the functions described earlier in the model
+template(name='userCard')
+  .panel.panel-default
+    .panel-body
+      .pull-left
+        +userAvatar user=this size=80
+      .user-card-info-block
+        ul.fa-ul
+          //- the service and the username
+          li
+            if isFromGithub
+              i.fa.fa-li.fa-github
+            else if isFromGoogle
+              i.fa.fa-li.fa-google
+            else
+              i.fa.fa-li
+            b= getName
+          //- identifier or username
+          li
+            i.fa.fa-li @
+            //- the reference to the user
+            a(href="{{ pathFor route='users_show' data=urlData }}")= getUsername
+          //- the email address, is specified
+          if getPublicEmail
+            li
+              i.fa.fa-li.fa-envelope
+              = getPublicEmail
