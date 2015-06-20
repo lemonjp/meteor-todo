@@ -4,11 +4,22 @@ Users = Meteor.users
 _.extend Users,
   # the list of fields available for editing
   allowFieldsForUpdate: ['profile', 'username']
-  # ...
+
   findUser: (id, options) ->
     Users.find { $or: [ { _id: id }, { username: id } ] }, options
+
   findOneUser: (id, options) ->
     Users.findOne { $or: [ { _id: id }, { username: id } ] }, options
+
+  findAutocomplete: (q, options) ->
+    rg = new RegExp q, 'i'
+    Users.find
+      $or: [
+        { '_id'          : rg }
+        { 'username'     : rg }
+        { 'profile.name' : rg }
+      ]
+    , options
 # add methods and properties to the model
 Users.helpers
   # the method of updating the user, we can call it on the client
